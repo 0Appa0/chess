@@ -30,3 +30,11 @@
 .chess__block:active {
   cursor: grabbing;
 }
+
+.chess__block.active {
+  background-color: rgb(219, 217, 217);
+}
+
+.chess__block.movable {
+  background-color: rgb(54, 50, 126);
+}

@@ -47,7 +47,8 @@ const initalBoard = () => (Array.from({length: 64}, (_, index) => {
     white: initialPositionWhite[`${availabeRow[index%8]}${(parseInt(index/8)) + 1}`] || null, 
     row:  availabeRow[index%8],
     name: `${availabeRow[index%8]}${(parseInt(index/8)) + 1}`,
-    moveAllowed: null
+    moveAllowed: null,
+    active: false,
   }
   colorChecker = !colorChecker
   if ((index + 1)%8 === 0)

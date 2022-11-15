@@ -1,42 +1,58 @@
 
 
+const availabeRow = ["a", "b", "c", "d", "e", "f", "g", "h"]
 
-const pawnMoves = ({ position, board }) => {
+const pMoves = (board, current) => {
+  const allowedMoved = []
+  if (current.white) {
+    const pos = current.name.split("")
+    allowedMoved.push(`${pos[0]}${Number(pos[1]) - 1}`)
+    allowedMoved.push(`${pos[0]}${Number(pos[1]) - 2}`)
+  } 
+  if (current.black) {
+    const pos = current.name.split("")
+    allowedMoved.push(`${pos[0]}${Number(pos[1]) + 1}`)
+    allowedMoved.push(`${pos[0]}${Number(pos[1]) + 2}`)
+  }
+  return allowedMoved
+}
+
+const bMoves = (board, current) => {
   return {}
 }
 
-const bishopMoves = ({ position, board }) => {
+const qMoves = ({ board, current  }) => {
   return {}
 }
 
-const queenMoves = ({ position, board  }) => {
+const rMoves = (board, current) => {
   return {}
 }
 
-const rookMoves = ({ position, board }) => {
+const kMoves = (board, current) => {
   return {}
 }
 
-const kingMoves = ({ position, board }) => {
-  return {}
-}
-
-const knightMoves = ({ position, board }) => {
+const knMoves = (board, current) => {
   return {}
 }
 
 const functionMapper = {
-  pawnMoves,
-  bishopMoves,
-  queenMoves,
-  rookMoves,
-  kingMoves,
-  knightMoves
+  pMoves,
+  bMoves,
+  qMoves,
+  rMoves,
+  kMoves,
+  knMoves
 }
 
 
-const legalMove = ({ position, board, piece }) => {
-  return functionMapper[`${piece}Movess`]({ position, board })
+const legalMove = (board,current) => {
+  if(current.black)
+    return functionMapper[`${current.black.toLowerCase()}Moves`](board, current)
+  if(current.white)
+    return functionMapper[`${current.white.toLowerCase()}Moves`](board, current)
+
 }
 
-export default { legalMove }
+export default legalMove

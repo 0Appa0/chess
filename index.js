@@ -11,7 +11,6 @@ export default {
     })
     const moveEvent = (e) => {
       let movablePiece = document.getElementsByClassName('dragging')[0];
-      console.log('here')
       if (!movablePiece)
         return
       const offset = getOffset(movablePiece)

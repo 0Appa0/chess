@@ -1,15 +1,13 @@
-const { ref } = Vue
 
 export default {
   props: {
     config: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
-  emits: ['click'],
-  setup(_props, context) {
-
+  emits: ['setActive'],
+  setup(props, context) {
     const handleMouseDown = (e) => {
       console.log(e.type)
       e.preventDefault()
@@ -19,6 +17,8 @@ export default {
         handleDragEnd(e)
     }
     const handleDragStart = (e) =>{
+      if(!props.config.black && !props.config.white)
+        return
       e.target.removeEventListener("onmousedown", handleMouseDown)
       e.target.classList.add("dragging")
       const offset = getOffset(e)
@@ -41,15 +41,19 @@ export default {
       console.log("drop");
     }
 
-    const handleClick = (e) => {
+
+    const handleElementClick = (e) => {
+      if((!props.config.black && !props.config.white) || props.config.active) 
+        return
+      context.emit('setActive', props.config)
     }
 
     return {
       handleDragStart,
       handleDragEnd,
       handleDrop,
-      handleClick,
-      handleMouseDown
+      handleMouseDown,
+      handleElementClick
     }
   },
   template: 
@@ -57,6 +61,7 @@ export default {
     <div 
       class="chess__block" 
       :color="config.color"
+      :class="[config.active ? 'active' : '', config.moveAllowed ? 'movable': '']"
     >
       <div 
         class="pi"  
@@ -65,6 +70,7 @@ export default {
         v-if="config.white || config.black" 
         @mousedown="handleMouseDown"
         @mouseup="handleMouseDown"
+        @click="handleElementClick"
       />
     </div>
   `
