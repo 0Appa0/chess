@@ -12,13 +12,18 @@
   background-color: white;
   border: 1px solid black;
   aspect-ratio: 1;
-  background-repeat: no-repeat;
-  background-size: contain;
   cursor: pointer;
 }
 
+.chess__block .pi {
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+}
+
 .chess__block[color="black"] {
-  background-color: rgb(134, 134, 210);
+  background-color: rgb(83, 125, 117);
 }
 
 

@@ -1,53 +1,53 @@
 
 /* White Pieces */
 
-.chess__block[white = "P"] {
+.chess__block .pi[white = "P"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wp.png");
 }
 
-.chess__block[white = "R"] {
+.chess__block .pi[white = "R"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wr.png");
 }
 
-.chess__block[white = "KN"] {
+.chess__block .pi[white = "KN"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wn.png");
 }
 
-.chess__block[white = "B"] {
+.chess__block .pi[white = "B"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wb.png");
 }
 
-.chess__block[white = "Q"] {
+.chess__block .pi[white = "Q"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wq.png");
 }
 
-.chess__block[white = "K"] {
+.chess__block .pi[white = "K"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wk.png");
 }
 
 
 /* Black Pieces */
 
-.chess__block[black = "P"] {
+.chess__block .pi[black = "P"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bp.png");
 }
 
-.chess__block[black = "R"] {
+.chess__block .pi[black = "R"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/br.png")
 }
 
-.chess__block[black = "KN"] {
+.chess__block .pi[black = "KN"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bn.png")
 }
 
-.chess__block[black = "B"] {
+.chess__block .pi[black = "B"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bb.png");
 }
 
-.chess__block[black = "Q"] {
+.chess__block .pi[black = "Q"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bq.png");
 }
 
-.chess__block[black = "K"] {
+.chess__block .pi[black = "K"] {
   background-image: url("https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bk.png")
 }
