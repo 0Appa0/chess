@@ -1,0 +1,27 @@
+@import url("./pieces.css");
+
+.chess__board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  height: 40rem;
+  width: 40rem;
+  margin: 0 auto;
+}
+
+.chess__block {
+  background-color: white;
+  border: 1px solid black;
+  aspect-ratio: 1;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.chess__block[color="black"] {
+  background-color: rgb(134, 134, 210);
+}
+
+
+.chess__block:active {
+  cursor: grabbing;
+}
