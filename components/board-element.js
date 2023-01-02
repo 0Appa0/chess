@@ -6,15 +6,17 @@ export default {
       required: true
     }
   },
-  emits: ['setActive'],
+  emits: ['setActive', 'movable'],
   setup(props, context) {
     const handleMouseDown = (e) => {
-      console.log(e.type)
       e.preventDefault()
       if(e.type === "mousedown")
         handleDragStart(e)
       if(e.type === "mouseup")
         handleDragEnd(e)
+      if((!props.config.black && !props.config.white) || props.config.active) 
+        return
+      context.emit('setActive', props.config)
     }
     const handleDragStart = (e) =>{
       if(!props.config.black && !props.config.white)
@@ -41,11 +43,10 @@ export default {
       console.log("drop");
     }
 
-
-    const handleElementClick = (e) => {
-      if((!props.config.black && !props.config.white) || props.config.active) 
+    const handleMovableCLick = (e) => {
+      if(!props.config.moveAllowed) 
         return
-      context.emit('setActive', props.config)
+      context.emit('movable', props.config)
     }
 
     return {
@@ -53,7 +54,7 @@ export default {
       handleDragEnd,
       handleDrop,
       handleMouseDown,
-      handleElementClick
+      handleMovableCLick,
     }
   },
   template: 
@@ -62,6 +63,7 @@ export default {
       class="chess__block" 
       :color="config.color"
       :class="[config.active ? 'active' : '', config.moveAllowed ? 'movable': '']"
+      @click="handleMovableCLick"
     >
       <div 
         class="pi"  
@@ -70,7 +72,6 @@ export default {
         v-if="config.white || config.black" 
         @mousedown="handleMouseDown"
         @mouseup="handleMouseDown"
-        @click="handleElementClick"
       />
     </div>
   `
