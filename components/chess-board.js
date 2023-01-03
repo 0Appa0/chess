@@ -1,7 +1,7 @@
 import boardElement from "./board-element.js"
 import initalBoard from "../utils/initialBoard.js"
 import legalMove from "../utils/legalMoves.js"
-const { ref } = Vue
+const { ref, watchEffect } = Vue
 
 export default {
   components: {
@@ -9,12 +9,19 @@ export default {
   },
   setup() {
     const board = ref(initalBoard())
-    const activePlayer = ref("p1")
+    const activePlayer = ref({
+      pn: "p1",
+      inCheck: false,
+      blockableSquares: [],
+      dominatedSquares: []
+    })
 
     const handleSetBoardActive = (config) => {
-      if((activePlayer.value === "p1" && config.black) || activePlayer.value === "p2" && config.white)
+      if((activePlayer.value.pn === "p1" && config.black) || (activePlayer.value.pn === "p2" && config.white))
         return
-      const lm = legalMove(board.value, config)
+      const lm = legalMove(board.value, {
+        ...config, ...activePlayer.value 
+      })
       board.value = board.value.map(item => ({
         ...item, 
         active: item.name === config.name ? true : false,
@@ -25,7 +32,13 @@ export default {
 
     const handlePieceMove = (config) => {
       const activeElement = board.value.find(item => item.active)
-      activePlayer.value = activePlayer.value === "p1" ? "p2" : "p1"
+      activePlayer.value = {
+        pn: activePlayer.value.pn === "p1" ? "p2" : "p1",
+        inCheck: false,
+        blockableSquares: [],
+        dominatedSquares: []
+      }
+
       board.value = board.value.map(item => {
         if(item.active) {
           return {...item, active: false, black:null, white: null}
@@ -35,12 +48,37 @@ export default {
         }
         return { ...item, moveAllowed: false }
       })
+
+      setNextMove()
+    }
+
+    const setNextMove = () => {
+      const currentPlayer = activePlayer.value.pn === "p1" ? "white" : "black"
+      const opp = activePlayer.value.pn === "p1" ? "black" : "white"
+      const queenSquare = board.value.find(item => item[currentPlayer]  === "K")
+      board.value.forEach(item => {
+        if(item[opp]) {
+          const lm = legalMove(board.value, {
+            ...item, 
+            inCheck: false, 
+            blockableSquares: [], 
+            dominatedSquares: []
+          })
+
+          if(lm.includes(queenSquare.name))
+            {
+              activePlayer.value.inCheck = true
+              activePlayer.value.blockableSquares = Array.from(new Set([...lm, item.name, ...activePlayer.value.blockableSquares ]))
+            }
+          activePlayer.value.dominatedSquares = Array.from(new Set([...lm, ...activePlayer.value.dominatedSquares ]))
+        }
+      })
     }
 
     return {
       board,
       handleSetBoardActive,
-      handlePieceMove
+      handlePieceMove,
     }
   },
   template: 
