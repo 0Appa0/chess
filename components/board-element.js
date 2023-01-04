@@ -36,11 +36,14 @@ export default {
     }
 
     const handleDragEnd = (e) => {
-      e.target.classList.remove("dragging")
-      e.target.style = ""
-    }
-    const handleDrop = (e) => {
-      console.log("drop");
+      e.target.style.pointerEvents = "none"
+      e.target.classList.add("checkMovable")
+      setTimeout(() => {
+        e.target.classList.remove("checkMovable")
+        e.target.classList.remove("dragging")
+        e.target.style = ""
+        e.target.style.pointerEvents = ""
+      }, 40);
     }
 
     const handleMovableCLick = (e) => {
@@ -49,12 +52,19 @@ export default {
       context.emit('movable', props.config)
     }
 
+    const handleMouseOver = (e) => {
+      console.log("asd")
+      if(props.config.moveAllowed && document.getElementsByClassName("checkMovable").length !== 0) {
+        handleMovableCLick()
+      }
+    }
+
     return {
       handleDragStart,
       handleDragEnd,
-      handleDrop,
       handleMouseDown,
       handleMovableCLick,
+      handleMouseOver,
     }
   },
   template: 
@@ -64,6 +74,8 @@ export default {
       :color="config.color"
       :class="[config.active ? 'active' : '', config.moveAllowed ? 'movable': '']"
       @click="handleMovableCLick"
+      @drop="handleMovableCLick"
+      @mouseover="handleMouseOver"
     >
       <div 
         class="pi"  

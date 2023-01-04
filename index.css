@@ -73,6 +73,7 @@ html {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     padding: 2rem;
     border-radius: 24px;
+    background-color: rgb(243, 240, 240);
 }
 
 .chess__main .chess__main-container .move-list {
@@ -84,7 +85,6 @@ html {
 
 .chess__block {
     background-color: white;
-    border: 1px solid black;
     aspect-ratio: 1;
     cursor: pointer;
 }
@@ -94,12 +94,12 @@ html {
     background-size: contain;
     height: 100%;
     width: 100%;
+    position: relative;
 }
 
 .chess__block[color="black"] {
     background-color: rgb(83, 125, 117);
 }
-
 
 .chess__block:active {
     cursor: grabbing;
@@ -110,9 +110,13 @@ html {
 }
 
 .chess__block.movable {
-    background-color: rgb(54, 50, 126);
+    background-color: rgb(241, 184, 184);
+    border: 1px solid red;
 }
 
+.dragging {
+    z-index: 1;
+}
 
 @media only screen and (max-width: 1024px) {
   
