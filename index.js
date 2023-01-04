@@ -1,9 +1,14 @@
-import chessBoard from "./components/chess-board.js"
+import ChessBoard from "./components/chess-board.js"
+import SideBar from "./components/side-bar.js"
+import Chat from "./components/chat.js"
+
 const { onMounted } = Vue
 
 export default {
   components: {
-    chessBoard
+    ChessBoard,
+    SideBar,
+    Chat
   },
   setup() {
     onMounted(() => {
@@ -35,7 +40,19 @@ export default {
   template: 
   `
     <div class="chess__main">
-      <chessBoard id="chessboard"></chessBoard>
+      <SideBar class="sidebar">
+      
+      </SideBar>
+
+      <div class="main-content">
+        <div class="chess__main-container">
+          <ChessBoard id="ChessBoard"></ChessBoard>
+          <div class="chat-movelist">
+            <Chat id="chat"/>
+            <div class="move-list"></div>
+          </div>
+        </div>
+      </div>
     </div>
   `
 }

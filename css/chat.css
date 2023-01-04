@@ -1,0 +1,105 @@
+#chat {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgb(83, 125, 117);
+}
+
+.chess__main .chess__main-container .chat-movelist {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.chess__main .chess__main-container #chat {
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 1.5rem;
+    height: calc(70% - 20px);
+    border-radius: 8px;
+}
+
+#chat .chat__box {
+    height: calc(100% - 3.5rem);
+    padding: 20px;
+    overflow: auto;
+    border-bottom: none;
+    background-color: rgb(244, 237, 237);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: rgb(137, 157, 153) 0 1px 10px;
+}
+
+#chat .chat__input {
+    height: 2.5rem;
+    display: flex;
+}
+
+#chat .chat__input input {
+    height: 100%;
+    width: 90%;
+    border: none;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    padding: 0 10px;
+}
+
+#chat .chat__input button {
+    height: 100%;
+    width: 10%;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border: none;
+}
+
+#chat .chat__input button  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+    transition: all .5s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#chat .chat__input button:hover {
+    box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+    transition-duration: .1s;
+}
+
+#chat .chat__box .chat__box-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#chat .chat__box .chat__box-message .msg {
+    padding: 10px 20px;
+    border-radius: 24px;
+    background-color: rgb(71, 113, 239);
+    max-width: 70%;
+    color: white;
+}
+
+#chat .chat__box .chat__box-message.user {
+    flex-direction: row-reverse;
+    
+}
+
+@media (min-width: 768px) {
+    #chat .chat__input button  {
+        padding: 0 2.6rem;
+    }
+}

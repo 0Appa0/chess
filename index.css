@@ -1,40 +1,119 @@
-@import url("./pieces.css");
+@import url("./css/pieces.css");
+@import url("./css/chat.css");
+@import url("./css/avatar.css");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-.chess__board {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  height: 40rem;
-  width: 40rem;
-  margin: 0 auto;
+*,*::after,*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+}
+
+.chess__main {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.chess__main .sidebar {
+    width: 15rem;
+    background-color: rgb(83, 125, 117);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 24px;
+    margin: 1rem 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.chess__main .sidebar .menu {
+    background-color: white;
+    padding: 8px 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform .3s;
+}
+
+.chess__main .sidebar .menu:hover {
+    transform: scale(1.04);
+    background-color: rgb(227, 223, 223);
+}
+
+.chess__main .sidebar a {
+    color: rgb(54, 50, 126);
+    text-decoration: none;
+}
+.chess__main .main-content {
+    width: calc(100% - 15rem);
+    padding: 20px;
+}
+
+.chess__main .chess__main-container {
+    display: flex;
+    gap: 40px;
+    max-height: 100%;
+    height: 100%;
+}
+
+
+.chess__main .chess__main-container .chess__board {
+    display: grid;
+    height: 100%;
+    aspect-ratio: 1;
+    grid-template-columns: repeat(8, 1fr);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 2rem;
+    border-radius: 24px;
+}
+
+.chess__main .chess__main-container .move-list {
+    height: calc(30% - 20px);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-radius: 8px;
+    padding: 2rem;
 }
 
 .chess__block {
-  background-color: white;
-  border: 1px solid black;
-  aspect-ratio: 1;
-  cursor: pointer;
+    background-color: white;
+    border: 1px solid black;
+    aspect-ratio: 1;
+    cursor: pointer;
 }
 
 .chess__block .pi {
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 100%;
-  width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 100%;
 }
 
 .chess__block[color="black"] {
-  background-color: rgb(83, 125, 117);
+    background-color: rgb(83, 125, 117);
 }
 
 
 .chess__block:active {
-  cursor: grabbing;
+    cursor: grabbing;
 }
 
 .chess__block.active {
-  background-color: rgb(219, 217, 217);
+    background-color: rgb(219, 217, 217);
 }
 
 .chess__block.movable {
-  background-color: rgb(54, 50, 126);
+    background-color: rgb(54, 50, 126);
+}
+
+
+@media only screen and (max-width: 1024px) {
+  
 }
