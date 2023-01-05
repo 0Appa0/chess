@@ -78,6 +78,15 @@ export default {
       const activeElement = board.value.find(item => item.active)
       let pendingRookMove = []
       board.value = board.value.map(item => {
+        if(activeElement.white === "K" && activeElement.name === "e8")
+          {
+            casatable.value.p1.left = false
+            casatable.value.p1.right = false
+          }
+        if(activeElement.black === "K" && activeElement.name === "e1") {
+            casatable.value.p2.left = false
+            casatable.value.p2.right = false
+        }
         if(activeElement.white === "R" && activeElement.name === "h8")
           casatable.value.p1.right = false
         if(activeElement.white === "R" && activeElement.name === "a8")
@@ -110,12 +119,12 @@ export default {
           }
 
           if(activeElement.black === "K" && activeElement.name === "e1" && item.name === "g1") {
-            casatable.value.p1 = { left: false, right: false }
+            casatable.value.p2 = { left: false, right: false }
             pendingRookMove = ["h1", "f1", "black"]
           }
 
           if(activeElement.black === "K" && activeElement.name === "e1" && item.name === "c1") {
-            casatable.value.p1 = { left: false, right: false }
+            casatable.value.p2 = { left: false, right: false }
             pendingRookMove = ["a1", "d1", "black"]
           }
 

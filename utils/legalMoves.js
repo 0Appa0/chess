@@ -374,8 +374,7 @@ const kMoves = (board, current) => {
   ];
   let knightCheck = false
   const knightPos = board.find(item => item[current.white ? "white" : "black"] === "KN")
-  debugger
-  if(["b1", "b8"].includes(knightPos.name))
+  if(knightPos && ["b1", "b8"].includes(knightPos.name))
     knightCheck = true
   const hConfig = [
     {
