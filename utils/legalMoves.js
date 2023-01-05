@@ -175,11 +175,6 @@ const pMoves = (board, current) => {
 
   allowedMoves = [...verticalMoveList, ...diagonalMoveList];
 
-  if (current.inCheck)
-    allowedMoves = allowedMoves.filter((item) =>
-      current.blockableSquares.includes(item)
-    );
-
   return allowedMoves;
 };
 
@@ -220,11 +215,6 @@ const bMoves = (board, current) => {
     board,
   });
   allowedMoves = [...diagonalMoveList];
-
-  if (current.inCheck)
-    allowedMoves = allowedMoves.filter((item) =>
-      current.blockableSquares.includes(item)
-    );
 
   return allowedMoves;
 };
@@ -300,11 +290,6 @@ const qMoves = (board, current) => {
     ...getDiagonalMoveList({ pos: Number(pos), rank, config: dConfig, board }),
   ];
 
-  if (current.inCheck)
-    allowedMoves = allowedMoves.filter((item) =>
-      current.blockableSquares.includes(item)
-    );
-
   return allowedMoves;
 };
 
@@ -351,11 +336,6 @@ const rMoves = (board, current) => {
     }),
     ...getVerticalMoveList({ config: vConfig, board, rank, pos: Number(pos) }),
   ];
-
-  if (current.inCheck)
-    allowedMoves = allowedMoves.filter((item) =>
-      current.blockableSquares.includes(item)
-    );
 
   return allowedMoves;
 };
@@ -431,11 +411,6 @@ const kMoves = (board, current) => {
     ...getDiagonalMoveList({ pos: Number(pos), rank, config: dConfig, board }),
   ];
 
-  if (current.inCheck)
-    allowedMoves = allowedMoves.filter(
-      (item) => !current.dominatedSquares.includes(item)
-    );
-
   return allowedMoves;
 };
 
@@ -453,11 +428,6 @@ const knMoves = (board, current) => {
       },
     }),
   ];
-  if (current.inCheck)
-    allowedMoves = allowedMoves.filter((item) =>
-      current.blockableSquares.includes(item)
-    );
-
   return allowedMoves;
 };
 

@@ -14,8 +14,6 @@ export default {
     const activePlayer = ref({
       pn: "p1",
       inCheck: false,
-      blockableSquares: [],
-      dominatedSquares: []
     })
 
     const handleSetBoardActive = (config) => {
@@ -40,8 +38,6 @@ export default {
       activePlayer.value = {
         pn: activePlayer.value.pn === "p1" ? "p2" : "p1",
         inCheck: false,
-        blockableSquares: [],
-        dominatedSquares: []
       }
 
 
@@ -61,34 +57,24 @@ export default {
     const setNextMove = () => {
       const currentPlayer = activePlayer.value.pn === "p1" ? "white" : "black"
       const opp = activePlayer.value.pn === "p1" ? "black" : "white"
-      const queenSquare = board.value.find(item => item[currentPlayer]  === "K")
-      
-      board.value.forEach(item => {
-        if(item[opp]) {
-          const lm = legalMove(board.value, {
-            ...item, 
-            inCheck: false, 
-            blockableSquares: [], 
-            dominatedSquares: []
-          })
-
-          if(lm.includes(queenSquare.name))
-            {
-              activePlayer.value.inCheck = true
-              let blSquared = setPathToQueen({ lm, current: item, queenSquare })
-              activePlayer.value.blockableSquares = Array.from(new Set([...blSquared, item.name, ...activePlayer.value.blockableSquares ]))
-            }
-          activePlayer.value.dominatedSquares = Array.from(new Set([...lm, ...activePlayer.value.dominatedSquares ]))
-        }
-      })
+      let queenSquare = board.value.find(item => item[currentPlayer]  === "K")
 
       let moves = []
       board.value.forEach(item => {
-        if(item[currentPlayer]) {
-          const lm = legalMove(board.value, {
+        if(item[opp]) {
+          let lm = legalMove(board.value, {
             ...item,
             ...activePlayer.value
           })
+          if(lm.includes(queenSquare.name))
+            activePlayer.value.inCheck = true
+        }
+        if(item[currentPlayer]) {
+          let lm = legalMove(board.value, {
+            ...item,
+            ...activePlayer.value
+          })
+          lm = lm.filter(move => checkifMoveChecks({ tempBoard: board.value, lm: move, config: item }))
           moves = [...moves, ...lm]
         }
       })
@@ -100,24 +86,21 @@ export default {
       let moveAllowed = true
       const currentPlayer = activePlayer.value.pn === "p1" ? "white" : "black"
       const opp = activePlayer.value.pn === "p1" ? "black" : "white"
-      const queenSquare = tempBoard.find(item => item[currentPlayer]  === "K")
       tempBoard = tempBoard.map(item => {
         if(item.name === config.name ) {
           return {...item, active: false, black:null, white: null}
         }
         if(item.name === lm) {
-          return {...item, black: config.black, white: config.white, moveAllowed: false}
+          return { ...item, black: config.black, white: config.white, moveAllowed: false}
         }
         return { ...item, moveAllowed: false }
       })
-
+      let queenSquare = tempBoard.find(item => item[currentPlayer]  === "K")
       tempBoard.forEach(item => {
         if(item[opp]) {
           const m = legalMove(tempBoard, {
             ...item, 
             inCheck: false, 
-            blockableSquares: [], 
-            dominatedSquares: []
           })
           if(m.includes(queenSquare.name))
             moveAllowed = false
@@ -126,58 +109,13 @@ export default {
       return moveAllowed
     }
 
-    const setPathToQueen = ({ lm, current, queenSquare}) => {
-      const cur = current.black || current.white
-      let res = []
-      const queenPos = queenSquare.name
-      switch(cur) {
-        case 'P':
-          res = [current.name]
-          break;
-        case "KN":
-          res = [current.name]
-          break;
-        default:
-          res = [...getAllMoveList({queenPos, curPos: current.name })]
-      }
-
-      return res
-    }
-
-    const getAllMoveList = ({ queenPos, curPos }) => {
-      let moveList = [curPos]
-      let [qr, qp] = queenPos.split("")
-      let [cr, cp] = curPos.split("")
-      cp = Number(cp)
-      qp = Number(qp)
-
-      while(qr !== cr || cp !== qp){ 
-        if(cp < qp)
-          cp ++
-
-        if (cp>qp)
-          cp --
-        
-        if(availabeRow.indexOf(cr) < availabeRow.indexOf(qr))
-          cr = availabeRow[availabeRow.indexOf(cr) + 1] 
-
-        if(availabeRow.indexOf(cr) > availabeRow.indexOf(qr))
-          cr = availabeRow[availabeRow.indexOf(cr) - 1] 
-        
-        moveList = Array.from(new Set([...moveList,  cr+cp ]))
-      }
-
-      return moveList
-    }
-
     return {
       board,
       handleSetBoardActive,
       handlePieceMove,
-      setPathToQueen,
-      getAllMoveList,
       checkifMoveChecks,
-      checkmate
+      checkmate,
+      activePlayer
     }
   },
   template: 
