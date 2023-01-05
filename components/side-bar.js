@@ -2,7 +2,7 @@ export default {
     emits:["select"],
     setup(_props, context) {
         const routes = [
-            { name: "Play Game", route: "/main"},
+            { name: "New Game", route: "/main"},
             { name: "Create Board", route: "/custom"}
         ]
         const handleMenuSelect = (item) => {
