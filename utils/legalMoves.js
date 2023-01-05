@@ -372,10 +372,14 @@ const kMoves = (board, current) => {
       opp: current.white ? "black" : "white",
     },
   ];
-
+  let knightCheck = false
+  const knightPos = board.find(item => item[current.white ? "white" : "black"] === "KN")
+  debugger
+  if(["b1", "b8"].includes(knightPos.name))
+    knightCheck = true
   const hConfig = [
     {
-      number: current.left ? 2 : 1,
+      number: (current.left && !knightCheck) ? 2 : 1,
       moveType: "left",
       piece: current.white ? "white" : "black",
       opp: current.white ? "black" : "white",
