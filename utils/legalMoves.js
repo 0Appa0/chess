@@ -56,6 +56,8 @@ const getHorizontalMoveList = ({ pos, rank, config, board }) => {
       if (boardPos) {
         if (boardPos[item.piece]) break;
         if (boardPos[item.opp]) {
+          if(item.type === "king" && i === 1)
+            break;
           res.push(newPos);
           break;
         }
@@ -361,6 +363,7 @@ const kMoves = (board, current) => {
       moveType: "bLeft",
       piece: current.white ? "white" : "black",
       opp: current.white ? "black" : "white",
+
     },
     {
       number: 1,
@@ -372,16 +375,18 @@ const kMoves = (board, current) => {
 
   const hConfig = [
     {
-      number: 1,
+      number: current.left ? 2 : 1,
       moveType: "left",
       piece: current.white ? "white" : "black",
       opp: current.white ? "black" : "white",
+      type: "king",
     },
     {
-      number: 1,
+      number: current.right ? 2 : 1,
       moveType: "right",
       piece: current.white ? "white" : "black",
       opp: current.white ? "black" : "white",
+      type: "king",
     },
   ];
 
