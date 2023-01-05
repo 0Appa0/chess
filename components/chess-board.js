@@ -62,6 +62,7 @@ export default {
       const currentPlayer = activePlayer.value.pn === "p1" ? "white" : "black"
       const opp = activePlayer.value.pn === "p1" ? "black" : "white"
       const queenSquare = board.value.find(item => item[currentPlayer]  === "K")
+      
       board.value.forEach(item => {
         if(item[opp]) {
           const lm = legalMove(board.value, {

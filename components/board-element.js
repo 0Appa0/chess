@@ -53,7 +53,6 @@ export default {
     }
 
     const handleMouseOver = (e) => {
-      console.log("asd")
       if(props.config.moveAllowed && document.getElementsByClassName("checkMovable").length !== 0) {
         handleMovableCLick()
       }

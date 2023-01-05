@@ -1,5 +1,5 @@
 import Avatar from "./avatar.js"
-const { ref, onMounted  } = Vue
+const { ref, onMounted , watch, nextTick } = Vue
 
 export default {
     components: {
@@ -22,15 +22,16 @@ export default {
             { messager: "opp", message: "I have heard that they are a good team."},
         ])
         
-        const handleMessageSend= () => {
+        const handleMessageSend = async () => {
             if(message.value){
                 messages.value = [...messages.value, { 
-                    messager: "user", 
+                    messager:  Math.random() < 0.5 ? "user": "opp", 
                     message: message.value 
                 }]  
+                message.value = ""
+                await nextTick()
                 const doc = document.getElementById('chat-box')
                 doc.scrollTop = doc.scrollHeight
-                message.value = ""
             }
         }
 
@@ -38,6 +39,7 @@ export default {
             const doc = document.getElementById('chat-box')
             doc.scrollTop = doc.scrollHeight
         })
+        
         return {
             message,
             messages,
