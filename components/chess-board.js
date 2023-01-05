@@ -56,8 +56,19 @@ export default {
 
     const setNextMove = () => {
       const currentPlayer = activePlayer.value.pn === "p1" ? "white" : "black"
+      const opp = activePlayer.value.pn === "p1" ? "black" : "white"
+      let queenSquare = board.value.find(item => item[currentPlayer]  === "K")
+
       let moves = []
       board.value.forEach(item => {
+        if(item[opp]) {
+          let lm = legalMove(board.value, {
+            ...item,
+            ...activePlayer.value
+          })
+          if(lm.includes(queenSquare.name))
+            activePlayer.value.inCheck = true
+        }
         if(item[currentPlayer]) {
           let lm = legalMove(board.value, {
             ...item,
@@ -109,7 +120,6 @@ export default {
   },
   template: 
   `
-  {{ checkmate }}
     <div class="chess__board">
       <boardElement 
         v-for="(item, index) in board" 
