@@ -2,17 +2,38 @@ import boardElement from "./board-element.js"
 import initalBoard from "../utils/initialBoard.js"
 import legalMove from "../utils/legalMoves.js"
 import Mask from "./mask.js"
-const { ref, watchEffect } = Vue
+const { ref } = Vue
 
 export default {
   components: {
     boardElement,
     Mask
   },
-  setup() {
+  emits:["setNewGame"],
+  props: {
+    resetGame: {
+      type: String,
+      default: "false"
+    }
+  },
+  watch: {
+    resetGame(newVal) {
+      if(newVal === "true") {
+        this.board = initalBoard()
+        this.activePlayer = { pn: "p1", inCheck: false}
+        this.checkmate = false
+        this.casatable = {
+          "p1": {left: true, right: true},
+          "p2": {left: true, right: true}
+        }
+        this.$emit("setNewGame")
+      }
+    }
+  },
+
+  setup(props) {
     const board = ref(initalBoard())
-    const endMessage = ref("white wins")
-    const availabeRow = ["a", "b", "c", "d", "e", "f", "g", "h"];
+    const endMessage = ref("")
     const checkmate = ref(false)
     const activePlayer = ref({
       pn: "p1",
@@ -160,7 +181,10 @@ export default {
       if(moves.length === 0) 
         {
           checkmate.value = true
-          endMessage.value = `${opp} wins!!!!!`
+          if(activePlayer.value.inCheck)
+            endMessage.value = `${opp} wins!!!!!`
+          else
+            endMessage.value = "Draw stalemate"
         }
     }
 
@@ -208,7 +232,7 @@ export default {
   },
   template: 
   `
-    <div class="chess__board">
+    <div class="chess__board" :key="resetGame">
       <Mask :message="endMessage" v-if="checkmate" @closeMask="handleCloseMask"/>
       <boardElement 
         v-for="(item, index) in board" 
